@@ -12,7 +12,7 @@ PACKAGES = {
     # -----------------------------------
     'pip3': {
         'termux': [
-            'pkg install openssl',
+            'apt install openssl',
             'pip3 install --upgrade pip',
         ],
         'linux': [
@@ -22,22 +22,22 @@ PACKAGES = {
     },
     # -----------------------------------
     'git': {
-        'termux': ['pkg install git'],
+        'termux': ['apt install git'],
         'linux': ['sudo apt install git'],
     },
     # -----------------------------------
     'gcc': {
-        'termux': ['pkg install clang'],
+        'termux': ['apt install clang'],
         'linux': ['sudo apt install clang'],
     },
     # -----------------------------------
     'nmap': {
-        'termux': ['pkg install nmap'],
+        'termux': ['apt install nmap'],
         'linux': ['sudo apt install nmap'],
     },
     # -----------------------------------
     'dart': {
-        'termux': ['pkg install dart'],
+        'termux': ['apt install dart'],
         'linux': [
             "sudo apt-get install apt-transport-https",
             "sudo sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -'",
@@ -135,6 +135,7 @@ class Installer:
             os.chdir(tempPath)
 
     def install(self):
+        print(all(self.InstalledSuccessfully['base']))
         if not System.PLATFORME in ('termux', 'linux'):
             if System.PLATFORME == 'unknown':
                 print("# The tool could not recognize the system!")
@@ -153,8 +154,6 @@ class Installer:
         self.installer()
 
         # check:
-        print('\n# checking:')
-        self.check()
 
         if System.PLATFORME == "termux":
             try:
@@ -173,11 +172,11 @@ class Installer:
         if Config.get('actions', 'DEBUG', cast=bool, default=True):
             print('# In DEBUG mode can"t move the tool\n# to "System.TOOL_PATH"!')
             return
-
+        print(os.path.isdir(System.TOOL_NAME))
         if os.path.isdir(System.TOOL_NAME):
             HackerMode = '#!/usr/bin/python3\n'
             HackerMode += 'import sys,os\n'
-            HackerMode += f'path=os.path.join("{System.TOOL_PATH}","{System.TOOL_NAME}")\n'
+            HackerMode += f'path = "{System.TOOL_PATH}"\n'
             HackerMode += "try:os.system(f'python3 -B {path} '+' '.join(sys.argv[1:]))\n"
             HackerMode += "except:pass"
             try:
@@ -185,13 +184,25 @@ class Installer:
                     f.write(HackerMode)
                 chmod = 'chmod' if System.PLATFORME == 'termux' else 'sudo chmod'
                 os.system(f'{chmod} 777 {os.path.join(System.BIN_PATH, System.TOOL_NAME)}')
+                print(f"{GREEN} installed successfully")
             except Exception as e:
                 print(e)
                 print('# installed failed!')
                 return
             Config.set('actions', 'IS_INSTALLED', True)
             try:
-                shutil.move(System.TOOL_NAME, System.TOOL_PATH)
+                # for fil in os.listdir(System.TOOL_NAME):
+                    # source_file = os.path.join(System.TOOL_NAME, fil)
+                    # shutil.move(source_file, System.TOOL_PATH)
+                    # print(f"{NORMAL}{source_file}: [{GREEN}MOVED{NORMAL}]")
+                if System.PLATFORME == "termux":
+                    os.system(f"mv {System.TOOL_NAME}/* {System.TOOL_PATH}")
+                    os.system(f"rm -rf {System.TOOL_NAME}")
+                    
+                if System.PLATFORME == "linux":
+                    os.system(f"sudo mv {System.TOOL_NAME}/* {System.TOOL_PATH}")
+                    os.system(f"sudo rm -rf {System.TOOL_NAME}")
+                    
                 print(f'# {GREEN}HackerMode installed successfully...{NORMAL}')
             except shutil.Error as e:
                 print(e)
@@ -201,6 +212,9 @@ class Installer:
             print(f'# try to run tool using\n# {GREEN}"python3 HakcerMode install"{NORMAL}')
             print('# installed failed!')
 
+            
+        print(f'{NORMAL}\n# checking:')
+        self.check()
     def check(self):
         '''To check if the packages has been
         installed successfully.
@@ -255,12 +269,4 @@ Installer = Installer()
 
 if __name__ == '__main__':
     # tests:
-    print('# To install write "python3 HackerMode install"')
-    HackerMode = '#!/usr/bin/python3\n'
-    HackerMode += 'import sys,os\n'
-    HackerMode += f'path=os.path.join("{System.TOOL_PATH}","{System.TOOL_NAME}")\n'
-    HackerMode += "try:os.system(f'python3 -B {path} '+' '.join(sys.argv[1:]))\n"
-    HackerMode += "except:pass"
-    print(HackerMode)
-    with open('HackerMode', 'w') as file:
-        file.write(HackerMode)
+    print('# To install write "python3 -B HackerMode install"')
