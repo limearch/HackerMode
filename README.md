@@ -18,16 +18,24 @@ ___
 
 ### Install:
 - kali & ubuntu
-```shell
-# Install tool packags
+
+Install tool packags
+```bash
 $ sudo apt install python3
+```
+```shell
 $ sudo apt install git
+```
+```bash
 $ sudo apt install python3-pip
+```
+Download tool
+```bash
+$ git clone https://github.com/limearch/HackerMode.git
+```
 
-# Download tool
-$ git clone https://github.com/Arab-developers/HackerMode
-
-# Install
+Install
+```bash
 $ sudo python3 -B HackerMode/ install
 ```
 - termux
