@@ -2,7 +2,8 @@
 <p>
 <a href=""><img src="https://img.shields.io/github/repo-size/limearch/HackerMode?label=tool size"></a>                              </p>
 
-- [Support](#support)                       - [Install](#install)
+- [Support](#support)
+- [Install](#install)
 - [Docs](#docs)
 - [contact us](https://t.me/@Robin0160)
 ___
