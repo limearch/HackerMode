@@ -1,7 +1,10 @@
 # HackerMode
-- [Support](#support)
-- [Install](#install)
+<p>
+<a href=""><img src="https://img.shields.io/github/repo-size/limearch/HackerMode?label=tool size"></a>                              </p>
+
+- [Support](#support)                       - [Install](#install)
 - [Docs](#docs)
+- [contact us](https://t.me/@Robin0160)
 ___
 
 <div id="support"></div>
@@ -16,45 +19,51 @@ ___
 
 <div id="install"></div>
 
-### Install:
+## Install:
 - kali & ubuntu
+#### Install tool packags
 
-Install tool packags
 ```bash
-$ sudo apt install python3
-```
-```shell
-$ sudo apt install git
+sudo apt install python3
 ```
 ```bash
-$ sudo apt install python3-pip
+sudo apt install git
 ```
-Download tool
 ```bash
-$ git clone https://github.com/limearch/HackerMode.git
+sudo apt install python3-pip
 ```
 
-Install
+#### Download tool
 ```bash
-$ sudo python3 -B HackerMode/ install
+git clone https://github.com/limearch/HackerMode.git
+```
+#### Install
+```bash
+sudo python -B HackerMode/ install
 ```
 - termux
-```shell
-# Install tool packags
-$ pkg install python
-$ pkg install git
 
-# Download tool
-$ git clone https://github.com/Arab-developers/HackerMode
+#### Install tool packags
+```bash
+pkg install python
+```
+```bash
+pkg install git
+```
 
-# Install
-$ python3 -B HackerMode/ install
+#### Download tool
+```bash
+git clone https://github.com/limearch/HackerMode.git
+```
+#### Install
+```bash
+python -B HackerMode/ install
 ```
 <div id="docs"></div>
 
 ### Docs:
 How to use HackerMode?
-```shell
+```bash
 # after install
 # write in terminal HackerMode
 # to run the tool
